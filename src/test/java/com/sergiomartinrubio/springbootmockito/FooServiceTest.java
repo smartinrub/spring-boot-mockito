@@ -111,4 +111,16 @@ class FooServiceTest {
         inOrder.verify(fooRepository).getNumber(2);
     }
 
+    @Test
+    public void getNumbersWithResetTest() {
+        when(fooRepository.getNumbers()).thenReturn(List.of(4, 6, 3));
+        List<Integer> numbers = fooService.getNumbers();
+        assertThat(numbers).contains(4, 6, 3);
+
+        reset(fooRepository);
+
+        List<Integer> emptyNumbers = fooService.getNumbers();
+        assertThat(emptyNumbers).isEmpty();
+    }
+
 }
