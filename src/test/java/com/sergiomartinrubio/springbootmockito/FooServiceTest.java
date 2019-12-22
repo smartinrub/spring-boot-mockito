@@ -2,10 +2,7 @@ package com.sergiomartinrubio.springbootmockito;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InOrder;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
@@ -121,6 +118,15 @@ class FooServiceTest {
 
         List<Integer> emptyNumbers = fooService.getNumbers();
         assertThat(emptyNumbers).isEmpty();
+    }
+
+    @Test
+    public void verifyWithCaptor() {
+        fooService.saveAndGetFirstNumber(5);
+
+        ArgumentCaptor<Integer> argument = ArgumentCaptor.forClass(Integer.class);
+        verify(fooRepository).saveNumber(argument.capture());
+        assertThat(argument.getValue()).isEqualTo(5);
     }
 
 }
