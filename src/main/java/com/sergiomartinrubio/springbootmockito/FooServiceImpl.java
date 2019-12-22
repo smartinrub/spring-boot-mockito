@@ -32,4 +32,11 @@ public class FooServiceImpl implements FooService {
     public void saveNumber(Integer number) {
         fooRepository.saveNumber(number);
     }
+
+    @Override
+    public Integer saveAndGetFirstNumber(Integer number) {
+        fooRepository.saveNumber(number);
+        return fooRepository.getNumber(0);
+    }
+
 }

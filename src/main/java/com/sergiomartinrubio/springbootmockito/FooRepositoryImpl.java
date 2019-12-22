@@ -2,13 +2,13 @@ package com.sergiomartinrubio.springbootmockito;
 
 import org.springframework.stereotype.Repository;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
 public class FooRepositoryImpl implements FooRepository {
 
-    private List<Integer> numbers = Arrays.asList(4, 5, 2, 6, 8);
+    private List<Integer> numbers = new ArrayList<>();
 
     @Override
     public String getFooMessage() {
@@ -17,7 +17,7 @@ public class FooRepositoryImpl implements FooRepository {
 
     @Override
     public List<Integer> getNumbers() {
-        return numbers;
+        return this.numbers;
     }
 
     @Override
@@ -27,6 +27,6 @@ public class FooRepositoryImpl implements FooRepository {
 
     @Override
     public void saveNumber(Integer number) {
-
+        numbers.add(number);
     }
 }

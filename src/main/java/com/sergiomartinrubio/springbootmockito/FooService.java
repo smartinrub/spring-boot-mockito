@@ -11,4 +11,6 @@ public interface FooService {
     Integer getNumber(int index);
 
     void saveNumber(Integer number);
+
+    Integer saveAndGetFirstNumber(Integer number);
 }
