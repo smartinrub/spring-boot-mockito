@@ -2,6 +2,7 @@ package com.sergiomartinrubio.springbootmockito;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InOrder;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -91,6 +92,23 @@ class FooServiceTest {
         assertThat(secondNumber).isEqualTo(3);
         assertThat(thirdNumber).isEqualTo(5);
         verify(fooRepository, times(3)).getNumber(anyInt());
+    }
+
+    @Test
+    public void getNumberVerifyInOrderTest() {
+        // GIVEN
+        when(fooRepository.getNumber(anyInt())).thenReturn(8, 3, 5);
+
+        // WHEN
+        fooService.getNumber(1);
+        fooService.getNumber(0);
+        fooService.getNumber(2);
+
+        // THEN
+        InOrder inOrder = inOrder(fooRepository);
+        inOrder.verify(fooRepository).getNumber(1);
+        inOrder.verify(fooRepository).getNumber(0);
+        inOrder.verify(fooRepository).getNumber(2);
     }
 
 }
